@@ -20,13 +20,16 @@ export class ApiController {
 
   @Get('transferToWallet')
   async transferToWallet() {
-      queue.push("xD hardcoded")
+      queue.push("1")
 
       return 1;
   }
 
     @Get('getQueue')
     async getQueue() {
-        return queue.join(",");
+      let res = "[" + queue.toString() + "]"
+      queue = []
+
+      return res;
     }
 }
