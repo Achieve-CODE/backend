@@ -1,35 +1,26 @@
 import {
-  Controller,
-  Get,
+    Controller,
+    Get, Query,
 } from '@nestjs/common';
 
-const ObjectId = require('mongoose').Types.ObjectId;
-let queue = []
+let currAmount = 0
 
-function isValidObjectId(id) {
-  if (ObjectId.isValid(id)) {
-    return String(new ObjectId(id)) === id;
-  }
-  return false;
-}
-
-@Controller('api')
+@Controller()
 export class ApiController {
   constructor(
   ) {}
 
   @Get('transferToWallet')
-  async transferToWallet() {
-      queue.push("1")
+  async transferToWallet(@Query() query) {
+      currAmount = query.amount
 
       return 1;
   }
 
     @Get('getQueue')
     async getQueue() {
-      let res = "[" + queue.toString() + "]"
-      queue = []
-
-      return res;
+      let temp = currAmount
+      currAmount = 0
+      return temp;
     }
 }
